@@ -21,19 +21,6 @@
   }
 }
 
-
-.cityName {
-  font-size: 65px;
-  font-weight: 600;
-
-  @media (max-width: 479.98px) {
-    order: 2;
-  }
-}
-
-
-
-
 .weather-tabs {
   display: flex;
   justify-content: space-around;

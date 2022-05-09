@@ -6,6 +6,7 @@ import WeatherTabs from './components/WeatherTabs';
 
 
 function App() {
+
   return (
     <div className="App">
       <div className="wrap">
