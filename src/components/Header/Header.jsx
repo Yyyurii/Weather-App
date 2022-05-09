@@ -8,6 +8,7 @@ import location from '../../assets/img/icon/location.svg';
 function Header() {
 
   const [searchToggle, setSearchToggle] = useState(false);
+  
 
   const onSearchToggle = () => {
     console.log('click')
