@@ -55,7 +55,7 @@
     &.modal {
       position: relative;
       z-index: 2;
-      width: 300px;
+      width: 100%;
       left: -40%;
       top: 200px;
     }
@@ -101,12 +101,12 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.87);
   z-index: 1;
   display: none;
 
   &.active {
-    display: block;
+    display: flex;
   }
 
   &__close {
