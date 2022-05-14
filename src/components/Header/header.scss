@@ -74,6 +74,10 @@
 }
 
 .cityName {
+  @media (max-width: 479.98px) {
+    display: flex;
+  }
+
   &__city {
     font-size: 55px;
     font-weight: 600;
@@ -85,7 +89,8 @@
     top: 30px;
     margin-right: 10px;
 
-    @media (max-width: 767.98px) {
+    @media (max-width: 479.98px) {
+      top: 5px;
     }
   }
 }
@@ -99,7 +104,6 @@
   background: rgba(0, 0, 0, 0.8);
   z-index: 1;
   display: none;
-  
 
   &.active {
     display: block;

@@ -46,10 +46,6 @@
   font-size: 150px;
   line-height: 100px;
 
-  &__current {
-    // font-size: 140px;
-  }
-
   &__maxMinBox {
     display: flex;
     justify-content: space-between;
@@ -82,27 +78,27 @@
       "item value";
     gap: 15px 25px;
 
-    @media (max-width: 479.98px) {
+    @media (max-width: 767.98px) {
       display: flex;
       gap: 10px;
     }
   }
 
   span {
-    @media (max-width: 479.98px) {
+    @media (max-width: 767.98px) {
       display: none;
     }
   }
 
   li:nth-child(2) {
-    @media (max-width: 479.98px) {
+    @media (max-width: 767.98px) {
       margin: 0 50px 0 0;
     }
   }
 
   li:nth-child(5),
   li:last-child {
-    @media (max-width: 479.98px) {
+    @media (max-width: 767.98px) {
       display: none;
     }
   }
