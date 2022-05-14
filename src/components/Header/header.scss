@@ -3,15 +3,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  padding: 24px 40px;
-  margin: 0 0 20px;
+  padding: 24px 40px 0;
   border-radius: 30px;
-  box-shadow: 14px 14px 8px 0px rgba(6, 5, 5, 0.2);
 
   @media (max-width: 767.98px) {
     border-radius: 0px;
     box-shadow: none;
     margin: 0;
+  }
+  @media (max-width: 479.98px) {
+    padding: 0px;
+    gap: 0px;
   }
 }
 

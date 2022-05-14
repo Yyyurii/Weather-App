@@ -1,35 +1,120 @@
-
 .main {
   padding: 24px 40px;
-  margin: 0 0 20px;
   border-radius: 30px;
-  box-shadow: 14px 14px 8px 0px rgba(6, 5, 5, 0.2);
+  position: relative;
+
+  display: grid;
+  grid-template-areas:
+    "data data icon temperature"
+    "info info icon temperature"
+    "info info icon temperature"
+    "info info icon temperature";
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
 
   @media (max-width: 767.98px) {
-    border-radius: 0px;
-    box-shadow: none;
-    margin: 0;
+    grid-template-areas:
+      "data"
+      "temperature"
+      "info"
+      "icon";
+    grid-template-columns: auto;
+    justify-content: center;
+    grid-template-rows: 0.2fr 0.5fr 0.5fr 0.5fr;
+    align-items: center;
+  }
+
+  @media (max-width: 479.98px) {
+    padding: 24px 0px;
   }
 
   &__info {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
-    @media (max-width: 767.98px) {
-      flex-direction: column;
-      align-items: center;
-    }
   }
 }
 
 .temperature {
+  display: flex;
+  justify-content: end;
+  grid-area: temperature;
+  position: absolute;
+  right: 0;
+  object-fit: cover;
+  font-size: 150px;
+  line-height: 100px;
+
   &__current {
-    font-size: 140px;
+    // font-size: 140px;
   }
 
   &__maxMinBox {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.data {
+  margin: 0 0 20px;
+  grid-area: data;
+  @media (max-width: 767.98px) {
+    text-align: center;
+  }
+}
+
+.weather-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  grid-area: info;
+
+  @media (max-width: 767.98px) {
+    align-items: flex-end;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-areas:
+      "item value"
+      "item value"
+      "item value";
+    gap: 15px 25px;
+
+    @media (max-width: 479.98px) {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  span {
+    @media (max-width: 479.98px) {
+      display: none;
+    }
+  }
+
+  li:nth-child(2) {
+    @media (max-width: 479.98px) {
+      margin: 0 50px 0 0;
+    }
+  }
+
+  li:nth-child(5),
+  li:last-child {
+    @media (max-width: 479.98px) {
+      display: none;
+    }
+  }
+}
+
+.weather-icon {
+  text-align: center;
+  grid-area: icon;
+
+  .icon {
+    @media (max-width: 479.98px) {
+      font-size: 1em;
+    }
   }
 }
