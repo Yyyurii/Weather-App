@@ -5,7 +5,7 @@ import './header.scss';
 import search from '../../assets/img/icon/search.svg';
 import location from '../../assets/img/icon/location.svg';
 
-function Header({city}) {
+function Header({city, onStateCity}) {
 
   const [searchInput, setSearchInput] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
@@ -56,7 +56,8 @@ function Header({city}) {
         <input
           id="cityName"
           className={searchModal ? 'search-bar__input modal' : inputClasses}
-          placeholder="Write the city" />
+          placeholder="Write the city"
+          onKeyDownCapture={onStateCity} />
       </div>
       <div className={searchModal ? 'search-modal active' : 'search-modal'}>
       <div 

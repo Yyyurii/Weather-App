@@ -4,12 +4,12 @@ const key = '747bee413190d4f515e09d896d391710';
 
 export default class OpenWeather extends Component {
 
-  async getCurrentData(nameCity) {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=kyiv&appid=${key}`);
+  async getCurrentData(city) {
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`);
 
     if (!res.ok) {
       // eslint-disable-next-line
-        throw new Error(`Could not fetch ${nameCity}` + `, received ${res.status}`)
+        throw new Error(`Could not fetch ${city}` + `, received ${res.status}`)
     }
 
     // eslint-disable-next-line no-return-await

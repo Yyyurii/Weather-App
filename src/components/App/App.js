@@ -11,15 +11,16 @@ import OpenWeather from '../../services/openWeather';
 
 function App() {
 
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('Kyiv');
   const [temp, setTemp] = useState('');
   const [humidity, setHumidity] = useState('');
   const [wind, setWind] = useState('');
   const [describe, setDiscribe] = useState('');
+  
 
   const openWeather = new OpenWeather();
 
-  openWeather.getCurrentData().then(res => {
+  openWeather.getCurrentData(city).then(res => {
     console.log(res);
     setCity(res.name)
     setTemp(Math.round(res.main.temp - 273, 15));
@@ -28,17 +29,26 @@ function App() {
     setDiscribe(res.weather[0].main)
   });
 
+  const onStateCity = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      setCity(event.target.value);
+      event.target.value = '';
+    }
+  }
+
   return (
     <div className="App">
       <div className="wrap">
 
         <Header
-          city = {city} />
+          city={city}
+          onStateCity={onStateCity} />
         <MainInfo
-          temp = {temp}
-          humidity = {humidity}
-          wind = {wind}
-          describe = {describe} />
+          temp={temp}
+          humidity={humidity}
+          wind={wind}
+          describe={describe} />
         <WeatherTabs />
 
       </div>
