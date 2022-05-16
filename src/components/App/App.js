@@ -1,8 +1,8 @@
 import './App.scss';
 
-import Header from './components/Header';
-import MainInfo from './components/MainInfo';
-import WeatherTabs from './components/WeatherTabs';
+import Header from '../Header';
+import MainInfo from '../MainInfo';
+import WeatherTabs from '../WeatherTabs';
 
 
 function App() {
