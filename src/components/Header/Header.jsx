@@ -5,7 +5,7 @@ import './header.scss';
 import search from '../../assets/img/icon/search.svg';
 import location from '../../assets/img/icon/location.svg';
 
-function Header() {
+function Header({city}) {
 
   const [searchInput, setSearchInput] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
@@ -45,7 +45,7 @@ function Header() {
     <header className="header">
       <div className="cityName">
         <img className="cityName__img" src={location} alt="location" />
-        <span className="cityName__city">Kyiv</span>
+        <span className="cityName__city">{city}</span>
       </div>
       <div className="search-bar">
         <img

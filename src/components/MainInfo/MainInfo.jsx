@@ -1,10 +1,10 @@
 import './mainInfo.scss';
 
-import humidity from '../../assets/img/weatherIcon/humidity.svg';
-import wind from '../../assets/img/weatherIcon/wind.svg';
-import description from '../../assets/img/icon/description.svg';
+import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
+import windImg from '../../assets/img/weatherIcon/wind.svg';
+import descriptionImg from '../../assets/img/icon/description.svg';
 
-function MainInfo() {
+function MainInfo({temp, humidity, wind, describe}) {
   return (
     <main className="main">
 
@@ -14,21 +14,17 @@ function MainInfo() {
 
       <div className="weather-info">
         <ul className="weather-info__container">
-          <li className="weather-info__item"><img src={humidity} alt="humidity"/><span> Humidity</span></li>
-          <li className="weather-info__item-value">40 %</li>
-          <li className="weather-info__item"><img src={wind} alt="wind"/><span> Wind</span></li>
-          <li className="weather-info__item-value">4 m/s</li>
-          <li className="weather-info__item"><img src={description} alt="description"/><span> Description</span></li>
-          <li className="weather-info__item-value">Sunny</li>
+          <li className="weather-info__item"><img src={humidityImg} alt="humidity"/><span> Humidity</span></li>
+          <li className="weather-info__item-value">{humidity} %</li>
+          <li className="weather-info__item"><img src={windImg} alt="wind"/><span> Wind</span></li>
+          <li className="weather-info__item-value">{wind} m/s</li>
+          <li className="weather-info__item"><img src={descriptionImg} alt="description"/><span> Description</span></li>
+          <li className="weather-info__item-value">{describe}</li>
         </ul>
       </div>
 
       <div className="temperature">
-        <span className="temperature__current">22&#176;</span>
-        {/* <div className="temperature__maxMinBox">
-            <span className="temperature__max">max 19*</span>
-            <span className="temperature__min">min 25*</span>
-          </div> */}
+        <span className="temperature__current">{temp}&#176;</span>
       </div>
 
       <div className="weather-icon">
