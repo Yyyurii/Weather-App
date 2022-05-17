@@ -10,8 +10,6 @@
     border-radius: 0px;
     box-shadow: none;
     margin: 0;
-  }
-  @media (max-width: 479.98px) {
     padding: 0px;
     gap: 0px;
   }
@@ -66,8 +64,8 @@
     }
 
     &:active,
-    :hover,
-    :focus {
+    &:hover,
+    &:focus {
       outline: 0;
       outline-offset: 0;
     }
@@ -103,7 +101,7 @@
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.87);
-  z-index: 2;
+  z-index: 3;
   display: none;
 
   &.active {

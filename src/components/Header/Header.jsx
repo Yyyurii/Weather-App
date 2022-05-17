@@ -29,7 +29,8 @@ function Header({ city, onStateCity, searchRequest }) {
     window.addEventListener('resize', detectSize);
 
     if (searchRequest = true) {
-      setSearchModal(false)
+      setSearchModal(false);
+      setSearchInput(false);
     }
 
     if (detectW < 767) {

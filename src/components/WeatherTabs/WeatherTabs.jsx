@@ -6,7 +6,7 @@ function WeatherTabs() {
   return (
     <div className="weather-tabs">
 
-      <div className="weather-tab">
+      <div className="weather-tab active">
         <div className="weather-tab__day">
           Tue
         </div>
