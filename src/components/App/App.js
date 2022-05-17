@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import './App.scss';
 
@@ -16,7 +16,7 @@ function App() {
   const [humidity, setHumidity] = useState('');
   const [wind, setWind] = useState('');
   const [describe, setDiscribe] = useState('');
-  
+  const [searchRequest, setSearchRequest] = useState(false);
 
   const openWeather = new OpenWeather();
 
@@ -26,13 +26,18 @@ function App() {
     setTemp(Math.round(res.main.temp - 273, 15));
     setHumidity(res.main.humidity);
     setWind(Math.round(res.wind.speed));
-    setDiscribe(res.weather[0].main)
+    setDiscribe(res.weather[0].main);
   });
+
+  useEffect(() => {
+    setSearchRequest(false);
+  }, [city]);
 
   const onStateCity = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setCity(event.target.value);
+      setSearchRequest(true);
       event.target.value = '';
     }
   }
@@ -43,7 +48,8 @@ function App() {
 
         <Header
           city={city}
-          onStateCity={onStateCity} />
+          onStateCity={onStateCity}
+          searchRequest={searchRequest} />
         <MainInfo
           temp={temp}
           humidity={humidity}

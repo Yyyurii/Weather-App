@@ -4,36 +4,35 @@ import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
 import windImg from '../../assets/img/weatherIcon/wind.svg';
 import descriptionImg from '../../assets/img/icon/description.svg';
 
+import { Sunny, Cloudy, Flurries, Rainy, SunShower, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
+
 function MainInfo({ temp, humidity, wind, describe }) {
 
   const date = new Date();
 
-  const weekDayArr = new Array(7);
-  weekDayArr[0] = "Sun";
-  weekDayArr[1] = "Mon";
-  weekDayArr[2] = "Tue";
-  weekDayArr[3] = "Wed";
-  weekDayArr[4] = "Thu";
-  weekDayArr[5] = "Fri";
-  weekDayArr[6] = "Sut";
-
-  const monthArr = new Array();
-  monthArr[0] = "January";
-  monthArr[1] = "February";
-  monthArr[2] = "March";
-  monthArr[3] = "April";
-  monthArr[4] = "May";
-  monthArr[5] = "June";
-  monthArr[6] = "July";
-  monthArr[7] = "August";
-  monthArr[8] = "September";
-  monthArr[9] = "October";
-  monthArr[10] = "November";
-  monthArr[11] = "December";
+  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+  const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   const weekDay = weekDayArr[date.getDay()];
   const month = monthArr[date.getMonth()];
   const dateNum = date.getDate();
+
+  const icon = (describe) => {
+    switch (describe) {
+      case 'Clouds':
+        return <Cloudy />;
+      case 'Drizzle': 
+        return <Rainy />;
+      case 'Clear': 
+        return <Sunny />;
+      case 'Rain': 
+        return <SunShower />;
+      case 'Snow': 
+        return <Flurries />;
+      case 'Thunderstorm': 
+        return <ThunderStorm />;
+    }
+  }
 
   return (
     <main className="main">
@@ -58,12 +57,9 @@ function MainInfo({ temp, humidity, wind, describe }) {
       </div>
 
       <div className="weather-icon">
-        <div className="icon sunny">
-          <div className="sun">
-            <div className="rays"></div>
-          </div>
-        </div>
+        {icon(describe)}
       </div>
+
 
     </main>
   )

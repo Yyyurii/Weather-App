@@ -105,7 +105,7 @@
   width: 3.75em;
   height: 3.75em;
   margin: 0.375em 0 0 -2em;
-  background: currentColor;
+  background: transparent;
 }
 
 .rain:after {
@@ -272,5 +272,22 @@
     color: #fff;
     background: #fff;
     opacity: 0.2;
+  }
+}
+
+.weather-icon {
+  text-align: center;
+  grid-area: icon;
+
+  .icon {
+    right: 47px;
+
+    @media (max-width: 767.98px) {
+      right: 0;
+    }
+    
+    @media (max-width: 479.98px) {
+      font-size: 1em;
+    }
   }
 }

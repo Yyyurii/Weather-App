@@ -5,13 +5,13 @@ import './header.scss';
 import search from '../../assets/img/icon/search.svg';
 import location from '../../assets/img/icon/location.svg';
 
-function Header({city, onStateCity}) {
+function Header({ city, onStateCity, searchRequest }) {
 
   const [searchInput, setSearchInput] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
   const [lowScreen, setLowScreen] = useState(false);
   const [detectW, setDetectW] = useState(window.innerWidth);
-  
+
 
   const onSearchInputToggle = () => {
     setSearchInput(!searchInput);
@@ -28,7 +28,11 @@ function Header({city, onStateCity}) {
   useEffect(() => {
     window.addEventListener('resize', detectSize);
 
-    if(detectW < 767) {
+    if(searchRequest = true) {
+      setSearchModal(false)
+    }
+
+    if (detectW < 767) {
       setLowScreen(true)
     } else {
       setLowScreen(false)
@@ -37,7 +41,7 @@ function Header({city, onStateCity}) {
     return () => {
       window.removeEventListener('resize', detectSize)
     }
-  }, [detectW]);
+  }, [detectW, searchRequest]);
 
   let inputClasses = searchInput ? 'search-bar__input active' : 'search-bar__input';
 
@@ -60,11 +64,11 @@ function Header({city, onStateCity}) {
           onKeyDownCapture={onStateCity} />
       </div>
       <div className={searchModal ? 'search-modal active' : 'search-modal'}>
-      <div 
-        className="search-modal__close"
-        onClick={onSearchModalToggle}>
-            <span></span>
-            <span></span>
+        <div
+          className="search-modal__close"
+          onClick={onSearchModalToggle}>
+          <span></span>
+          <span></span>
         </div>
       </div>
     </header>
