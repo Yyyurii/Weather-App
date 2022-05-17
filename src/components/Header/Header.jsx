@@ -28,7 +28,7 @@ function Header({ city, onStateCity, searchRequest }) {
   useEffect(() => {
     window.addEventListener('resize', detectSize);
 
-    if(searchRequest = true) {
+    if (searchRequest = true) {
       setSearchModal(false)
     }
 
@@ -42,8 +42,6 @@ function Header({ city, onStateCity, searchRequest }) {
       window.removeEventListener('resize', detectSize)
     }
   }, [detectW, searchRequest]);
-
-  let inputClasses = searchInput ? 'search-bar__input active' : 'search-bar__input';
 
   return (
     <header className="header">
@@ -59,11 +57,16 @@ function Header({ city, onStateCity, searchRequest }) {
           onClick={lowScreen ? onSearchModalToggle : onSearchInputToggle} />
         <input
           id="cityName"
-          className={searchModal ? 'search-bar__input modal' : inputClasses}
+          className={searchInput ? 'search-bar__input active' : 'search-bar__input'}
           placeholder="Write the city"
           onKeyDownCapture={onStateCity} />
       </div>
       <div className={searchModal ? 'search-modal active' : 'search-modal'}>
+        <div>
+          <input
+            placeholder="Write the city"
+            onKeyDownCapture={onStateCity} />
+        </div>
         <div
           className="search-modal__close"
           onClick={onSearchModalToggle}>
