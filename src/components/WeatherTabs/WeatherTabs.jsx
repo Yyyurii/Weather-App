@@ -14,6 +14,7 @@ import OpenWeather from '../../services/openWeather';
 function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
 
   const [weatherList, setWeatherList] = useState([]);
+  const [activeDay, setActiveDay] = useState('');
 
   useEffect(() => {
     const openWeather = new OpenWeather();
@@ -71,9 +72,12 @@ function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
         weatherList.map(item => {
           return (
             <div
-              className="weather-tab"
+              className={item.day === activeDay ? "weather-tab active" : "weather-tab"}
               key={item.day}
-              onClick={() => onClickWeatherTab(item)} >
+              onClick={() => {
+                setActiveDay(item.day);
+                onClickWeatherTab(item);
+                }} >
               <div className="weather-tab__day">
                 {item.day}
               </div>
