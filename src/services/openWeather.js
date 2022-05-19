@@ -1,32 +1,47 @@
 import { Component } from 'react';
 
-const key = '747bee413190d4f515e09d896d391710';
+const key = '2ea2797359ca534b4658b2e87c5b8647';
+// const key = '747bee413190d4f515e09d896d391710';
 
 export default class OpenWeather extends Component {
 
-  async getCurrentData(city) {
+  getResource = async (url) => {
+    let res = await fetch(url);
+
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
+  getCurrentData = async (city) => {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`);
-
+    console.log('getCurrentData')
     if (!res.ok) {
-      // eslint-disable-next-line
-        throw new Error(`Could not fetch ${city}` + `, received ${res.status}`)
+      throw new Error(`Could not fetch ${city}` + `, received ${res.status}`)
     }
-
-    // eslint-disable-next-line no-return-await
     return await res.json();
   }
 
-  async getResource(nameCity) {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=london&cnt=3&appid=${key}`);
-
-    if (!res.ok) {
-      // eslint-disable-next-line
-        throw new Error(`Could not fetch ${nameCity}` + `, received ${res.status}`)
-    }
-
-    // eslint-disable-next-line no-return-await
-    return await res.json();
+  getWeatherForDays = async (city) => {
+    const res = await this.getResource(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${key}`);
+    console.log(res, 'getWeatherForDays');
+    return res.list.map(this._transformWeatherData);
   }
-  
+
+  _transformWeatherData = (data) => {
+    const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+
+    return {
+      day: weekDayArr[new Date(data.dt_txt).getDay()],
+      hours: new Date(data.dt_txt).getHours(),
+      describe: data.weather[0].main,
+      temp: Math.round(data.main.temp - 273, 15),
+      humidity: data.main.humidity,
+      wind: Math.round(data.wind.speed)
+    }
+  }
+
 }
 

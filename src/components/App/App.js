@@ -20,18 +20,20 @@ function App() {
 
   const openWeather = new OpenWeather();
 
-  openWeather.getCurrentData(city).then(res => {
-    console.log(res);
-    setCity(res.name)
-    setTemp(Math.round(res.main.temp - 273, 15));
-    setHumidity(res.main.humidity);
-    setWind(Math.round(res.wind.speed));
-    setDiscribe(res.weather[0].main);
-  });
-
   useEffect(() => {
     setSearchRequest(false);
+    getWeatherData();
   }, [city]);
+
+  const getWeatherData = () => {
+    openWeather.getCurrentData(city).then(res => {
+      setCity(res.name)
+      setTemp(Math.round(res.main.temp - 273, 15));
+      setHumidity(res.main.humidity);
+      setWind(Math.round(res.wind.speed));
+      setDiscribe(res.weather[0].main);
+    });
+  }
 
   const onStateCity = (event) => {
     if (event.key === 'Enter') {
@@ -55,7 +57,10 @@ function App() {
           humidity={humidity}
           wind={wind}
           describe={describe} />
-        <WeatherTabs />
+        <WeatherTabs
+          city={city}
+          temp={temp}
+          describe={describe} />
 
       </div>
     </div>
