@@ -13,25 +13,24 @@ import OpenWeather from '../../services/openWeather';
 
 function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
 
-  const [weatherList, setWeatherList] = useState([]);
-  const [activeDay, setActiveDay] = useState('');
+  const date = new Date();
+  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+  const weekDay = weekDayArr[date.getDay()];
 
+  const [weatherList, setWeatherList] = useState([]);
+  const [activeDay, setActiveDay] = useState(weekDay);
+  
   useEffect(() => {
     const openWeather = new OpenWeather();
 
     const getWeatherList = () => {
       openWeather
         .getWeatherForDays(city)
-        .then(res => {
-          console.log(res, 'getWeather res');
-          console.log(city, 'getWeather city');
-          return res.filter(item => item.hours === 15);
-        })
+        .then(res => res.filter(item => item.hours === 15))
         .then(newWeatherList => setWeatherList(newWeatherList));
     }
 
     getWeatherList();
-    console.log('useEffect Weather Tabs')
   }, [city]);
 
   const icon = (describe) => {
@@ -51,22 +50,33 @@ function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
     }
   }
 
+  // function renderWeatherList(weatherArr) {
+  //   weatherArr.map(item => {
+  //     return (
+  //       <div
+  //         className={item.day === activeDay ? "weather-tab active" : "weather-tab"}
+  //         key={item.day}
+  //         onClick={() => {
+  //           setActiveDay(item.day);
+  //           onClickWeatherTab(item);
+  //         }} >
+  //         <div className="weather-tab__day">
+  //           {item.day}
+  //         </div>
+  //         <div className="weather-tab__icon">
+  //           <img src={icon(item.describe)} />
+  //         </div>
+  //         <div className="weather-tab__temperature">
+  //           {item.temp}&#176;
+  //         </div>
+  //       </div>
+  //     )
+  //   })
+  // }
+
+
   return (
     <div className="weather-tabs">
-      {/* <div
-        className="weather-tab "
-        onClick={onClickWeatherTab} >
-        <div className="weather-tab__day">
-          Tue
-        </div>
-        <div className="weather-tab__icon">
-          <img src={icon(describe)} />
-        </div>
-        <div className="weather-tab__temperature">
-          {temp}&#176;
-        </div>
-      </div> */}
-
 
       {
         weatherList.map(item => {
@@ -77,7 +87,7 @@ function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
               onClick={() => {
                 setActiveDay(item.day);
                 onClickWeatherTab(item);
-                }} >
+              }} >
               <div className="weather-tab__day">
                 {item.day}
               </div>
