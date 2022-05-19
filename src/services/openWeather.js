@@ -32,9 +32,12 @@ export default class OpenWeather extends Component {
 
   _transformWeatherData = (data) => {
     const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+    const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     return {
       day: weekDayArr[new Date(data.dt_txt).getDay()],
+      date: new Date(data.dt_txt).getDate(),
+      month: monthArr[new Date(data.dt_txt).getMonth()],
       hours: new Date(data.dt_txt).getHours(),
       describe: data.weather[0].main,
       temp: Math.round(data.main.temp - 273, 15),

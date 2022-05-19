@@ -11,7 +11,7 @@ import thunderstorm from '../../assets/img/weatherIcon/thunderstorm.svg';
 
 import OpenWeather from '../../services/openWeather';
 
-function WeatherTabs({ city, temp, describe }) {
+function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
 
   const [weatherList, setWeatherList] = useState([]);
 
@@ -37,23 +37,24 @@ function WeatherTabs({ city, temp, describe }) {
     switch (describe) {
       case 'Clouds':
         return cloudy;
-      case 'Drizzle': 
+      case 'Drizzle':
         return rainy;
-      case 'Clear': 
+      case 'Clear':
         return sunny;
-      case 'Rain': 
+      case 'Rain':
         return sunShower;
-      case 'Snow': 
+      case 'Snow':
         return flurries;
-      case 'Thunderstorm': 
+      case 'Thunderstorm':
         return thunderstorm;
     }
   }
 
   return (
     <div className="weather-tabs">
-
-      <div className="weather-tab active">
+      {/* <div
+        className="weather-tab "
+        onClick={onClickWeatherTab} >
         <div className="weather-tab__day">
           Tue
         </div>
@@ -63,14 +64,16 @@ function WeatherTabs({ city, temp, describe }) {
         <div className="weather-tab__temperature">
           {temp}&#176;
         </div>
-      </div>
+      </div> */}
+
 
       {
         weatherList.map(item => {
           return (
-            <div 
+            <div
               className="weather-tab"
-              key={item.day} >
+              key={item.day}
+              onClick={() => onClickWeatherTab(item)} >
               <div className="weather-tab__day">
                 {item.day}
               </div>

@@ -6,7 +6,7 @@ import descriptionImg from '../../assets/img/icon/description.svg';
 
 import { Sunny, Cloudy, Flurries, Rainy, SunShower, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
 
-function MainInfo({ temp, humidity, wind, describe }) {
+function MainInfo({ temp, humidity, wind, describe, weatherTab }) {
 
   const date = new Date();
 
@@ -21,15 +21,15 @@ function MainInfo({ temp, humidity, wind, describe }) {
     switch (describe) {
       case 'Clouds':
         return <Cloudy />;
-      case 'Drizzle': 
+      case 'Drizzle':
         return <Rainy />;
-      case 'Clear': 
+      case 'Clear':
         return <Sunny />;
-      case 'Rain': 
+      case 'Rain':
         return <SunShower />;
-      case 'Snow': 
+      case 'Snow':
         return <Flurries />;
-      case 'Thunderstorm': 
+      case 'Thunderstorm':
         return <ThunderStorm />;
     }
   }
@@ -38,26 +38,26 @@ function MainInfo({ temp, humidity, wind, describe }) {
     <main className="main">
 
       <div className="data">
-        {weekDay}, {month} {dateNum}
+        {weatherTab.day ? weatherTab.day : weekDay}, {weatherTab.month ? weatherTab.month : month} {weatherTab.date ? weatherTab.date : dateNum}
       </div>
 
       <div className="weather-info">
         <ul className="weather-info__container">
           <li className="weather-info__item"><img src={humidityImg} alt="humidity" /><span> Humidity</span></li>
-          <li className="weather-info__item-value">{humidity} %</li>
+          <li className="weather-info__item-value">{weatherTab.humidity ? weatherTab.humidity : humidity} %</li>
           <li className="weather-info__item"><img src={windImg} alt="wind" /><span> Wind</span></li>
-          <li className="weather-info__item-value">{wind} m/s</li>
+          <li className="weather-info__item-value">{weatherTab.wind ? weatherTab.wind : wind} m/s</li>
           <li className="weather-info__item"><img src={descriptionImg} alt="description" /><span> Description</span></li>
-          <li className="weather-info__item-value">{describe}</li>
+          <li className="weather-info__item-value">{weatherTab.describe ? weatherTab.describe : describe}</li>
         </ul>
       </div>
 
       <div className="temperature">
-        <span className="temperature__current">{temp}&#176;</span>
+        <span className="temperature__current">{weatherTab.temp ? weatherTab.temp : temp}&#176;</span>
       </div>
 
       <div className="weather-icon">
-        {icon(describe)}
+        {icon(weatherTab.describe ? weatherTab.describe : describe)}
       </div>
 
 

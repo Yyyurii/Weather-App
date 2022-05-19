@@ -17,6 +17,7 @@ function App() {
   const [wind, setWind] = useState('');
   const [describe, setDiscribe] = useState('');
   const [searchRequest, setSearchRequest] = useState(false);
+  const [weatherTab, setWeatherTab] = useState({});
 
   const openWeather = new OpenWeather();
 
@@ -35,7 +36,7 @@ function App() {
     });
   }
 
-  const onStateCity = (event) => {
+  const onChangeCity = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       setCity(event.target.value);
@@ -44,23 +45,29 @@ function App() {
     }
   }
 
+  const onClickWeatherTab = (weatherObj) => {
+    setWeatherTab(weatherObj);
+  }
+
   return (
     <div className="App">
       <div className="wrap">
 
         <Header
           city={city}
-          onStateCity={onStateCity}
+          onChangeCity={onChangeCity}
           searchRequest={searchRequest} />
         <MainInfo
           temp={temp}
           humidity={humidity}
           wind={wind}
-          describe={describe} />
+          describe={describe}
+          weatherTab={weatherTab} />
         <WeatherTabs
           city={city}
           temp={temp}
-          describe={describe} />
+          describe={describe}
+          onClickWeatherTab={onClickWeatherTab} />
 
       </div>
     </div>
