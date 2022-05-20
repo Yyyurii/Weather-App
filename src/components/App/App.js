@@ -19,22 +19,27 @@ function App() {
   const [searchRequest, setSearchRequest] = useState(false);
   const [weatherTab, setWeatherTab] = useState({});
 
-  const openWeather = new OpenWeather();
+  
 
   useEffect(() => {
     setSearchRequest(false);
+
+    const openWeather = new OpenWeather();
+
+    const getWeatherData = () => {
+      openWeather.getCurrentData(city).then(res => {
+        setCity(res.name)
+        setTemp(Math.round(res.main.temp - 273, 15));
+        setHumidity(res.main.humidity);
+        setWind(Math.round(res.wind.speed));
+        setDiscribe(res.weather[0].main);
+      });
+    }
+
     getWeatherData();
   }, [city]);
 
-  const getWeatherData = () => {
-    openWeather.getCurrentData(city).then(res => {
-      setCity(res.name)
-      setTemp(Math.round(res.main.temp - 273, 15));
-      setHumidity(res.main.humidity);
-      setWind(Math.round(res.wind.speed));
-      setDiscribe(res.weather[0].main);
-    });
-  }
+
 
   const onChangeCity = (event) => {
     if (event.key === 'Enter') {
