@@ -4,18 +4,12 @@ import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
 import windImg from '../../assets/img/weatherIcon/wind.svg';
 import descriptionImg from '../../assets/img/icon/description.svg';
 
-import { Sunny, Cloudy, Flurries, Rainy, SunShower, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
+import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
 
-function MainInfo({ temp, humidity, wind, describe, weatherTab }) {
+function MainInfo({ currentWeather, weatherTab, dateObj }) {
 
-  const date = new Date();
-
-  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
-  const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-  const weekDay = weekDayArr[date.getDay()];
-  const month = monthArr[date.getMonth()];
-  const dateNum = date.getDate();
+  const { temp, humidity, wind, describe } = currentWeather;
+  const {weekDay, month, dateNum} = dateObj;
 
   const icon = (describe) => {
     switch (describe) {
@@ -26,7 +20,7 @@ function MainInfo({ temp, humidity, wind, describe, weatherTab }) {
       case 'Clear':
         return <Sunny />;
       case 'Rain':
-        return <SunShower />;
+        return <Rainy />;
       case 'Snow':
         return <Flurries />;
       case 'Thunderstorm':
@@ -59,7 +53,6 @@ function MainInfo({ temp, humidity, wind, describe, weatherTab }) {
       <div className="weather-icon">
         {icon(weatherTab.describe ? weatherTab.describe : describe)}
       </div>
-
 
     </main>
   )

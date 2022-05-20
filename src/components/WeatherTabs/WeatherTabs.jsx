@@ -13,16 +13,17 @@ import OpenWeather from '../../services/openWeather';
 
 import Loader from '../Loader/Loader';
 
-function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
+function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
 
-  const date = new Date();
-  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
-  const weekDay = weekDayArr[date.getDay()];
+  const { city, temp, describe } = currentWeather;
+  const { weekDay } = dateObj;
 
   const [weatherList, setWeatherList] = useState(null);
-  const [activeDay, setActiveDay] = useState(weekDay);
+  const [activeDay, setActiveDay] = useState('');
 
   useEffect(() => {
+    setActiveDay(weekDay);
+
     const openWeather = new OpenWeather();
 
     const getWeatherList = () => {
@@ -30,10 +31,10 @@ function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
         .getWeatherForDays(city)
         .then(res => res.filter(item => item.hours === 15))
         .then(newWeatherList => setWeatherList(newWeatherList));
-    }
+    };
 
     getWeatherList();
-  }, [city]);
+  }, [city, weekDay]);
 
   const icon = (describe) => {
     switch (describe) {
@@ -66,16 +67,38 @@ function WeatherTabs({ city, temp, describe, onClickWeatherTab }) {
             {item.day}
           </div>
           <div className="weather-tab__icon">
-            <img src={icon(item.describe)} alt="weather icon"/>
+            <img src={icon(item.describe)} alt="weather icon" />
           </div>
           <div className="weather-tab__temperature">
             {item.temp}&#176;
           </div>
         </div>
       )
-    })
+    }).slice(1);
 
-    return weatherListItems;
+    return (
+      <>
+        <div
+          className={weekDay === activeDay ? "weather-tab active" : "weather-tab"}
+          key={weekDay}
+          onClick={() => {
+            setActiveDay(weekDay);
+            onClickWeatherTab({day: weekDay, temp: temp, describe: describe});
+          }} >
+          <div className="weather-tab__day">
+            {weekDay}
+          </div>
+          <div className="weather-tab__icon">
+            <img src={icon(describe)} alt="weather icon" />
+          </div>
+          <div className="weather-tab__temperature">
+            {temp}&#176;
+          </div>
+        </div>
+
+        {weatherListItems}
+      </>
+    );
   }
 
   const content = weatherList ? renderWeatherList(weatherList) : <Loader />;

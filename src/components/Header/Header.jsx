@@ -5,7 +5,9 @@ import './header.scss';
 import search from '../../assets/img/icon/search.svg';
 import location from '../../assets/img/icon/location.svg';
 
-function Header({ city, onChangeCity, searchRequest }) {
+function Header({ currentWeather, onChangeCity, searchRequest }) {
+
+  const { city } = currentWeather;
 
   const [searchInput, setSearchInput] = useState(false);
   const [searchModal, setSearchModal] = useState(false);

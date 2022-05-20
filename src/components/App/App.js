@@ -7,44 +7,54 @@ import MainInfo from '../MainInfo';
 import WeatherTabs from '../WeatherTabs';
 import OpenWeather from '../../services/openWeather';
 
-
-
 function App() {
 
-  const [city, setCity] = useState('Kyiv');
-  const [temp, setTemp] = useState('');
-  const [humidity, setHumidity] = useState('');
-  const [wind, setWind] = useState('');
-  const [describe, setDiscribe] = useState('');
+  const [currentWeather, setCurrentWeather] = useState({
+    city: 'Kyiv',
+    temp: '',
+    humidity: '',
+    wind: '',
+    describe: ''
+  });
   const [searchRequest, setSearchRequest] = useState(false);
   const [weatherTab, setWeatherTab] = useState({});
-
-  
+  const [dateObj, setDateObj] = useState({});
 
   useEffect(() => {
+    const date = new Date();
+
+    const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+    const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
     setSearchRequest(false);
+
+    setDateObj({
+      weekDay: weekDayArr[date.getDay()],
+      month: monthArr[date.getMonth()],
+      dateNum: date.getDate()
+    });
 
     const openWeather = new OpenWeather();
 
     const getWeatherData = () => {
-      openWeather.getCurrentData(city).then(res => {
-        setCity(res.name)
-        setTemp(Math.round(res.main.temp - 273, 15));
-        setHumidity(res.main.humidity);
-        setWind(Math.round(res.wind.speed));
-        setDiscribe(res.weather[0].main);
+      openWeather.getCurrentData(currentWeather.city).then(res => {
+        setCurrentWeather({
+          city: res.name,
+          temp: Math.round(res.main.temp - 273, 15),
+          humidity: res.main.humidity,
+          wind: Math.round(res.wind.speed),
+          describe: res.weather[0].main
+        });
       });
     }
 
     getWeatherData();
-  }, [city]);
-
-
+  }, [currentWeather.city]);
 
   const onChangeCity = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      setCity(event.target.value);
+      setCurrentWeather({ city: event.target.value });
       setSearchRequest(true);
       event.target.value = '';
     }
@@ -59,19 +69,16 @@ function App() {
       <div className="wrap">
 
         <Header
-          city={city}
+          currentWeather={currentWeather}
           onChangeCity={onChangeCity}
           searchRequest={searchRequest} />
         <MainInfo
-          temp={temp}
-          humidity={humidity}
-          wind={wind}
-          describe={describe}
+          dateObj={dateObj}
+          currentWeather={currentWeather}
           weatherTab={weatherTab} />
         <WeatherTabs
-          city={city}
-          temp={temp}
-          describe={describe}
+          dateObj={dateObj}
+          currentWeather={currentWeather}
           onClickWeatherTab={onClickWeatherTab} />
 
       </div>

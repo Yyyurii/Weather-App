@@ -17,7 +17,7 @@ export default class OpenWeather extends Component {
 
   getCurrentData = async (city) => {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`);
-    console.log('getCurrentData')
+    console.log('getСгккутеЦуферук');
     if (!res.ok) {
       throw new Error(`Could not fetch ${city}` + `, received ${res.status}`)
     }
@@ -26,7 +26,7 @@ export default class OpenWeather extends Component {
 
   getWeatherForDays = async (city) => {
     const res = await this.getResource(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${key}`);
-    console.log(res, 'getWeatherForDays');
+    console.log('getWeatherForDays');
     return res.list.map(this._transformWeatherData);
   }
 
