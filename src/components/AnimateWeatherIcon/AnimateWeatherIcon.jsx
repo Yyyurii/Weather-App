@@ -17,6 +17,15 @@ export function Cloudy() {
   )
 }
 
+export function Moon() {
+  return (
+    <div className="icon moon">
+      <div className="moonIcon"></div>
+      <div className="cloud"></div>
+    </div>
+  )
+}
+
 export function Flurries() {
   return (
     <div className="icon flurries">

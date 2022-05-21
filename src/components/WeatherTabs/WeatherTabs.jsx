@@ -8,6 +8,7 @@ import rainy from '../../assets/img/weatherIcon/rainy.svg';
 import sunShower from '../../assets/img/weatherIcon/sunShower.svg';
 import flurries from '../../assets/img/weatherIcon/flurries.svg';
 import thunderstorm from '../../assets/img/weatherIcon/thunderstorm.svg';
+import moon from '../../assets/img/weatherIcon/moon.svg';
 import defaultCase from '../../assets/img/icon/defaultCase.svg';
 
 import OpenWeather from '../../services/openWeather';
@@ -18,7 +19,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
 
   const { city, temp, describe } = currentWeather;
-  const { weekDay } = dateObj;
+  const { weekDay, night } = dateObj;
 
   const [weatherList, setWeatherList] = useState(null);
   const [activeDay, setActiveDay] = useState('');
@@ -44,6 +45,8 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
         return flurries;
       case 'Thunderstorm':
         return thunderstorm;
+      case 'Night':
+        return moon;
       default: 
       return defaultCase;
     }
@@ -62,6 +65,8 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
       .then(newWeatherList => setWeatherList(newWeatherList))
       .catch(onError);
   };
+
+  const isNight = night ? "Night" : describe;
 
   function renderWeatherList(weatherArr) {
     const weatherListItems = weatherArr.map(item => {
@@ -93,13 +98,13 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
           key={weekDay}
           onClick={() => {
             setActiveDay(weekDay);
-            onClickWeatherTab({ day: weekDay, temp: temp, describe: describe });
+            onClickWeatherTab({ day: weekDay, temp: temp, describe: isNight });
           }} >
           <div className="weather-tab__day">
             {weekDay}
           </div>
           <div className="weather-tab__icon">
-            <img src={icon(describe)} alt="weather icon" />
+            <img src={icon(isNight)} alt="weather icon" />
           </div>
           <div className="weather-tab__temperature">
             {temp}&#176;

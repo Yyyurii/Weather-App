@@ -3,14 +3,15 @@ import './mainInfo.scss';
 import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
 import windImg from '../../assets/img/weatherIcon/wind.svg';
 import descriptionImg from '../../assets/img/icon/description.svg';
-import defaultCase from '../../assets/img/icon/defaultCase.svg'
 
-import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
+import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm, Moon } from '../AnimateWeatherIcon/AnimateWeatherIcon';
 
 function MainInfo({ currentWeather, weatherTab, dateObj }) {
 
-  const { temp, humidity, wind, describe } = currentWeather;
-  const { weekDay, month, dateNum } = dateObj;
+  let { temp, humidity, wind, describe } = currentWeather;
+  const { weekDay, month, dateNum, night } = dateObj;
+
+  const isNight = night ? describe = "Night" : describe;
 
   const icon = (describe) => {
     switch (describe) {
@@ -26,6 +27,8 @@ function MainInfo({ currentWeather, weatherTab, dateObj }) {
         return <Flurries />;
       case 'Thunderstorm':
         return <ThunderStorm />;
+      case 'Night':
+        return <Moon />;
       default:
         return <Cloudy />; // Знайти та змінити
     }
@@ -54,7 +57,7 @@ function MainInfo({ currentWeather, weatherTab, dateObj }) {
       </div>
 
       <div className="weather-icon">
-        {icon(weatherTab.describe ? weatherTab.describe : describe)}
+        {icon(weatherTab.describe ? weatherTab.describe : isNight)}
       </div>
 
     </main>

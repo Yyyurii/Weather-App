@@ -23,19 +23,24 @@ function App() {
   const [dateObj, setDateObj] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  const date = new Date();
+
+  const hours = date.getHours()
+  const isDayTime = hours > 6 && hours < 21;
+
+  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+  const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   useEffect(() => {
-    const date = new Date();
-
-    const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
-    const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     setSearchRequest(false);
 
     setDateObj({
       weekDay: weekDayArr[date.getDay()],
       month: monthArr[date.getMonth()],
-      dateNum: date.getDate()
+      dateNum: date.getDate(), 
+      night: !isDayTime
     });
 
     const openWeather = new OpenWeather();
@@ -89,7 +94,8 @@ function App() {
   const errorMessage = error ? <ErrorMessage /> : null;
   const content = !(loading || error) ? <Veiw dateObj={dateObj} currentWeather={currentWeather} weatherTab={weatherTab} onClickWeatherTab={onClickWeatherTab} /> : null;
 
-  const appClasses = weatherTab.describe ? weatherTab.describe : currentWeather.describe
+  const bg = weatherTab.describe ? weatherTab.describe : currentWeather.describe;
+  const appClasses = !isDayTime && !weatherTab.describe ? 'Night' : bg;
 
   return (
     <div className={"App " + appClasses}>
