@@ -12,6 +12,7 @@ import thunderstorm from '../../assets/img/weatherIcon/thunderstorm.svg';
 import OpenWeather from '../../services/openWeather';
 
 import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
 
@@ -20,18 +21,10 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
 
   const [weatherList, setWeatherList] = useState(null);
   const [activeDay, setActiveDay] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setActiveDay(weekDay);
-
-    const openWeather = new OpenWeather();
-
-    const getWeatherList = () => {
-      openWeather
-        .getWeatherForDays(city)
-        .then(res => res.filter(item => item.hours === 15))
-        .then(newWeatherList => setWeatherList(newWeatherList));
-    };
 
     getWeatherList();
   }, [city, weekDay]);
@@ -52,6 +45,20 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
         return thunderstorm;
     }
   }
+
+  const openWeather = new OpenWeather();
+
+  const onError = () => {
+    setError(true);
+  }
+
+  const getWeatherList = () => {
+    openWeather
+      .getWeatherForDays(city)
+      .then(res => res.filter(item => item.hours === 15))
+      .then(newWeatherList => setWeatherList(newWeatherList))
+      .catch(onError);
+  };
 
   function renderWeatherList(weatherArr) {
     const weatherListItems = weatherArr.map(item => {
@@ -83,7 +90,7 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
           key={weekDay}
           onClick={() => {
             setActiveDay(weekDay);
-            onClickWeatherTab({day: weekDay, temp: temp, describe: describe});
+            onClickWeatherTab({ day: weekDay, temp: temp, describe: describe });
           }} >
           <div className="weather-tab__day">
             {weekDay}
@@ -101,7 +108,8 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
     );
   }
 
-  const content = weatherList ? renderWeatherList(weatherList) : <Loader />;
+  const weatherContent = weatherList ? renderWeatherList(weatherList) : <Loader />;
+  const content = error ? <ErrorMessage /> : weatherContent;
 
 
   return (
