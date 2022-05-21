@@ -63,6 +63,7 @@ function App() {
   }
 
   const onWeatherLoading = () => {
+    setError(false);
     setLoading(true);
   }
 
