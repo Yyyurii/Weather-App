@@ -8,6 +8,7 @@ import rainy from '../../assets/img/weatherIcon/rainy.svg';
 import sunShower from '../../assets/img/weatherIcon/sunShower.svg';
 import flurries from '../../assets/img/weatherIcon/flurries.svg';
 import thunderstorm from '../../assets/img/weatherIcon/thunderstorm.svg';
+import defaultCase from '../../assets/img/icon/defaultCase.svg';
 
 import OpenWeather from '../../services/openWeather';
 
@@ -43,6 +44,8 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
         return flurries;
       case 'Thunderstorm':
         return thunderstorm;
+      default: 
+      return defaultCase;
     }
   }
 

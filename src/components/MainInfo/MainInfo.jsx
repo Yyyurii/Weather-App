@@ -3,13 +3,14 @@ import './mainInfo.scss';
 import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
 import windImg from '../../assets/img/weatherIcon/wind.svg';
 import descriptionImg from '../../assets/img/icon/description.svg';
+import defaultCase from '../../assets/img/icon/defaultCase.svg'
 
 import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm } from '../AnimateWeatherIcon/AnimateWeatherIcon';
 
 function MainInfo({ currentWeather, weatherTab, dateObj }) {
 
   const { temp, humidity, wind, describe } = currentWeather;
-  const {weekDay, month, dateNum} = dateObj;
+  const { weekDay, month, dateNum } = dateObj;
 
   const icon = (describe) => {
     switch (describe) {
@@ -25,6 +26,8 @@ function MainInfo({ currentWeather, weatherTab, dateObj }) {
         return <Flurries />;
       case 'Thunderstorm':
         return <ThunderStorm />;
+      default:
+        return <Cloudy />; // Знайти та змінити
     }
   }
 
