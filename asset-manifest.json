@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/Weather-App/static/css/main.9c229644.css",
-    "main.js": "/Weather-App/static/js/main.efdf8f28.js",
+    "main.css": "/Weather-App/static/css/main.48a226f5.css",
+    "main.js": "/Weather-App/static/js/main.cd0c3758.js",
     "static/media/wind.svg": "/Weather-App/static/media/wind.04445b735b32bee5a5428dbd31d7e567.svg",
     "static/media/description.svg": "/Weather-App/static/media/description.e8617e969017d77396f6865eada9ae8f.svg",
     "static/media/sunShower.svg": "/Weather-App/static/media/sunShower.a5492a5e3e49910ee6a5f459c455decc.svg",
+    "static/media/defaultCase.svg": "/Weather-App/static/media/defaultCase.ae6c91ca55f066e3ea27b9e7614213cd.svg",
     "static/media/rainy.svg": "/Weather-App/static/media/rainy.477eb03017b10b3648098c098a2554f6.svg",
     "static/media/cloudy.svg": "/Weather-App/static/media/cloudy.053af01e953364557c2bf278038d3c0a.svg",
     "static/media/flurries.svg": "/Weather-App/static/media/flurries.8aa144ebbc7402b7a01e047da16aecf5.svg",
@@ -13,12 +14,14 @@
     "static/media/thunderstorm.svg": "/Weather-App/static/media/thunderstorm.bc60bc4a2389537d003cdf6836c68955.svg",
     "static/media/humidity.svg": "/Weather-App/static/media/humidity.fa18f035654b0063dad8a826d7aeb413.svg",
     "static/media/search.svg": "/Weather-App/static/media/search.ea7290bb9a578b2194c2b5f6004fb2e3.svg",
+    "static/media/error.svg": "/Weather-App/static/media/error.6f554459b50ce27089b3e5782fb9e74f.svg",
+    "static/media/moon.svg": "/Weather-App/static/media/moon.16d416fb486d7d6e76b5118edca70e31.svg",
     "index.html": "/Weather-App/index.html",
-    "main.9c229644.css.map": "/Weather-App/static/css/main.9c229644.css.map",
-    "main.efdf8f28.js.map": "/Weather-App/static/js/main.efdf8f28.js.map"
+    "main.48a226f5.css.map": "/Weather-App/static/css/main.48a226f5.css.map",
+    "main.cd0c3758.js.map": "/Weather-App/static/js/main.cd0c3758.js.map"
   },
   "entrypoints": [
-    "static/css/main.9c229644.css",
-    "static/js/main.efdf8f28.js"
+    "static/css/main.48a226f5.css",
+    "static/js/main.cd0c3758.js"
   ]
 }
