@@ -6,6 +6,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @extend %bgAnimation;
+
+  &.Clouds, &.Rain, &.Drizzle {
+    background: $bgCloudy;
+  }
+
+  &.Clear {
+    background: $bgSunny;
+  }
+
+  &.Snow {
+    background: $bgSnow;
+  }
+
+  &.Thunderstorm {
+    background: $bgSnow;
+  }
 
   @media (max-width: 767.98px) {
     align-items: stretch;

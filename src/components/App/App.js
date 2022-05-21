@@ -89,8 +89,10 @@ function App() {
   const errorMessage = error ? <ErrorMessage /> : null;
   const content = !(loading || error) ? <Veiw dateObj={dateObj} currentWeather={currentWeather} weatherTab={weatherTab} onClickWeatherTab={onClickWeatherTab} /> : null;
 
+  const appClasses = weatherTab.describe ? weatherTab.describe : currentWeather.describe
+
   return (
-    <div className="App">
+    <div className={"App " + appClasses}>
       <div className="wrap">
 
         <Header

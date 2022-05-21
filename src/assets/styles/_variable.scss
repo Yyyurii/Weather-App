@@ -1,6 +1,11 @@
 $mainColor: #fff;
 
-$bgSunny: linear-gradient(-45deg, #ffd16c, #add9e7, #c2d4de, #ffd16c) 400%/400%;
+$bgSunny: linear-gradient(-45deg, #feffd1, #7dddf5, #66daf7, #feffd1) 400%/400%;
+$bgCloudy: linear-gradient(-45deg, #fff,  #66afc1, #66afc1, #fff) 400%/400%;
+$bgSnow: linear-gradient(-45deg, #a1c4fd,  #C2EDFB, #a1c4fd, #C2EDFB) 400%/400%;
+$bgThunderstorm: linear-gradient(-45deg, #c0bbbb, #7f8383, #c0bbbb, #7e7e7e) 400%/400%;
+
+
 
 %bgAnimation {
   animation: gradient 15s ease infinite;
