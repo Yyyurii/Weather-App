@@ -23,7 +23,7 @@ function App() {
   const [dateObj, setDateObj] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+
   const date = new Date();
 
   const hours = date.getHours()
@@ -39,7 +39,7 @@ function App() {
     setDateObj({
       weekDay: weekDayArr[date.getDay()],
       month: monthArr[date.getMonth()],
-      dateNum: date.getDate(), 
+      dateNum: date.getDate(),
       night: !isDayTime
     });
 
@@ -57,6 +57,8 @@ function App() {
   }, [currentWeather.city]);
 
   const onWeatherListLoaded = (weather) => {
+    setWeatherTab({});
+    
     setCurrentWeather({
       city: weather.name,
       temp: Math.round(weather.main.temp - 273, 15),
@@ -92,7 +94,8 @@ function App() {
 
   const spinner = loading ? <Loader /> : null;
   const errorMessage = error ? <ErrorMessage /> : null;
-  const content = !(loading || error) ? <Veiw dateObj={dateObj} currentWeather={currentWeather} weatherTab={weatherTab} onClickWeatherTab={onClickWeatherTab} /> : null;
+  const view = <Veiw dateObj={dateObj} currentWeather={currentWeather} weatherTab={weatherTab} onClickWeatherTab={onClickWeatherTab} />
+  const content = !(loading || error) ? view : null;
 
   const bg = weatherTab.describe ? weatherTab.describe : currentWeather.describe;
   const appClasses = !isDayTime && !weatherTab.describe ? 'Night' : bg;

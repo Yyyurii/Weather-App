@@ -29,7 +29,7 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
     setActiveDay(weekDay);
 
     getWeatherList();
-  }, [city, weekDay]);
+  }, [city, weekDay, describe]);
 
   const icon = (describe) => {
     switch (describe) {
