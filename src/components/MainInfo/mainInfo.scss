@@ -38,7 +38,7 @@
 
 .temperature {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   grid-area: temperature;
   position: absolute;
   right: 0;
