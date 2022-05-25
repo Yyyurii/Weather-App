@@ -4,7 +4,7 @@ import humidityImg from '../../assets/img/weatherIcon/humidity.svg';
 import windImg from '../../assets/img/weatherIcon/wind.svg';
 import descriptionImg from '../../assets/img/icon/description.svg';
 
-import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm, Moon } from '../AnimateWeatherIcon/AnimateWeatherIcon';
+import { Sunny, Cloudy, Flurries, Rainy, ThunderStorm, Moon, DefaulCase } from '../AnimateWeatherIcon/AnimateWeatherIcon';
 
 function MainInfo({ currentWeather, weatherTab, dateObj }) {
 
@@ -30,7 +30,7 @@ function MainInfo({ currentWeather, weatherTab, dateObj }) {
       case 'Night':
         return <Moon />;
       default:
-        return <Cloudy />; // Знайти та змінити
+        return <DefaulCase />; // Знайти та змінити
     }
   }
 

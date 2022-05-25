@@ -1,3 +1,5 @@
+import dafaultCase from '../../assets/img/icon/defaultCase.svg';
+
 export function Sunny() {
   return (
     <div className="icon sunny">
@@ -68,5 +70,11 @@ export function ThunderStorm() {
         <div className="bolt"></div>
       </div>
     </div>
+  )
+}
+
+export function DefaulCase() {
+  return (
+    <img src={dafaultCase} alt="weather" />
   )
 }

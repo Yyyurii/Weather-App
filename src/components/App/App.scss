@@ -12,7 +12,7 @@
     background: $bgCloudy;
   }
 
-  &.Clear {
+  &.Clear, &.Dust {
     background: $bgSunny;
   }
 
