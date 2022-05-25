@@ -7,9 +7,11 @@ import MainInfo from '../MainInfo';
 import WeatherTabs from '../WeatherTabs';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import OpenWeather from '../../services/openWeather';
+import useOpenWeather from '../../services/openWeather';
+
 
 function App() {
+  const { loading, error, getCurrentData } = useOpenWeather();
 
   const [currentWeather, setCurrentWeather] = useState({
     city: 'Kyiv',
@@ -21,18 +23,16 @@ function App() {
   const [searchRequest, setSearchRequest] = useState(false);
   const [weatherTab, setWeatherTab] = useState({});
   const [dateObj, setDateObj] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const date = new Date();
-
-  const hours = date.getHours()
-  const isDayTime = hours > 6 && hours < 21;
-
-  const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
-  const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const [isDay, setIsDay] = useState(true);
 
   useEffect(() => {
+    const date = new Date();
+
+    const hours = date.getHours()
+    setIsDay(hours > 6 && hours < 21 ? true : false);
+
+    const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
+    const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     setSearchRequest(false);
 
@@ -40,25 +40,20 @@ function App() {
       weekDay: weekDayArr[date.getDay()],
       month: monthArr[date.getMonth()],
       dateNum: date.getDate(),
-      night: !isDayTime
+      night: !isDay
     });
 
-    const openWeather = new OpenWeather();
-
     const getWeatherData = () => {
-      onWeatherLoading();
-      openWeather
-        .getCurrentData(currentWeather.city)
+      getCurrentData(currentWeather.city)
         .then(onWeatherListLoaded)
-        .catch(onError);
     }
 
     getWeatherData();
-  }, [currentWeather.city]);
+  }, [currentWeather.city, isDay]);
 
   const onWeatherListLoaded = (weather) => {
     setWeatherTab({});
-    
+
     setCurrentWeather({
       city: weather.name,
       temp: Math.round(weather.main.temp - 273, 15),
@@ -66,17 +61,6 @@ function App() {
       wind: Math.round(weather.wind.speed),
       describe: weather.weather[0].main
     });
-    setLoading(false);
-  }
-
-  const onWeatherLoading = () => {
-    setError(false);
-    setLoading(true);
-  }
-
-  const onError = () => {
-    setError(true);
-    setLoading(false);
   }
 
   const onChangeCity = (event) => {
@@ -98,7 +82,7 @@ function App() {
   const content = !(loading || error) ? view : null;
 
   const bg = weatherTab.describe ? weatherTab.describe : currentWeather.describe;
-  const appClasses = !isDayTime && !weatherTab.describe ? 'Night' : bg;
+  const appClasses = !isDay && !weatherTab.describe ? 'Night' : bg;
 
   return (
     <div className={"App " + appClasses}>

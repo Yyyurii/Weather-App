@@ -14,7 +14,6 @@ function Header({ currentWeather, onChangeCity, searchRequest }) {
   const [lowScreen, setLowScreen] = useState(false);
   const [detectW, setDetectW] = useState(window.innerWidth);
 
-
   const onSearchInputToggle = () => {
     setSearchInput(!searchInput);
   }
@@ -30,7 +29,7 @@ function Header({ currentWeather, onChangeCity, searchRequest }) {
   useEffect(() => {
     window.addEventListener('resize', detectSize);
 
-    if (searchRequest = true) {
+    if (searchRequest) {
       setSearchModal(false);
       setSearchInput(false);
     }

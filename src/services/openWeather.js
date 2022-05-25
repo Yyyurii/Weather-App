@@ -1,36 +1,24 @@
-import { Component } from 'react';
+import { useHttp } from '../hooks/http.hook';
 
 const key = '2ea2797359ca534b4658b2e87c5b8647';
 // const key = '747bee413190d4f515e09d896d391710';
 
-export default class OpenWeather extends Component {
+const useOpenWeather = () => {
 
-  getResource = async (url) => {
-    let res = await fetch(url);
+  const { loading, request, error, clearError } = useHttp();
 
-    if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    }
-
-    return await res.json();
-}
-
-  getCurrentData = async (city) => {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`);
-    
-    if (!res.ok) {
-      throw new Error(`Could not fetch ${city}` + `, received ${res.status}`)
-    }
-    return await res.json();
+  const getCurrentData = async (city) => {
+    const res = await request(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`);
+    return res;
   }
 
-  getWeatherForDays = async (city) => {
-    const res = await this.getResource(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${key}`);
+  const getWeatherForDays = async (city) => {
+    const res = await request(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=32&appid=${key}`);
     // console.log('getWeatherForDays');
-    return res.list.map(this._transformWeatherData);
+    return res.list.map(_transformWeatherData);
   }
 
-  _transformWeatherData = (data) => {
+  const _transformWeatherData = (data) => {
     const weekDayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sut"];
     const monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -46,5 +34,8 @@ export default class OpenWeather extends Component {
     }
   }
 
+  return { loading, request, error, clearError, getCurrentData, getWeatherForDays }
+
 }
 
+export default useOpenWeather;

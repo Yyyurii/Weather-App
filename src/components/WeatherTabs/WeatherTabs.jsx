@@ -11,34 +11,28 @@ import thunderstorm from '../../assets/img/weatherIcon/thunderstorm.svg';
 import moon from '../../assets/img/weatherIcon/moon.svg';
 import defaultCase from '../../assets/img/icon/defaultCase.svg';
 
-import OpenWeather from '../../services/openWeather';
+import useOpenWeather from '../../services/openWeather';
 
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
 
+  const { loading, error, getWeatherForDays } = useOpenWeather();
+
   const { city, temp, describe } = currentWeather;
   const { weekDay, night } = dateObj;
 
   const [weatherList, setWeatherList] = useState(null);
   const [activeDay, setActiveDay] = useState('');
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setActiveDay(weekDay);
 
-    const openWeather = new OpenWeather();
-
     const getWeatherList = () => {
-      setLoading(true);
-      openWeather
-        .getWeatherForDays(city)
+      getWeatherForDays(city)
         .then(res => res.filter(item => item.hours === 15))
         .then(newWeatherList => setWeatherList(newWeatherList))
-        .catch(onError);
-      setLoading(false);
     };
 
     getWeatherList();
@@ -64,15 +58,6 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
         return defaultCase;
     }
   }
-
-  
-
-  const onError = () => {
-    setError(true);
-    setLoading(false);
-  }
-
-  
 
   const isNight = night ? "Night" : describe;
 
@@ -126,13 +111,11 @@ function WeatherTabs({ onClickWeatherTab, dateObj, currentWeather }) {
       );
     }
 
-
   }
 
   const weatherContent = weatherList ? renderWeatherList(weatherList) : <Loader />;
   const errorContent = error ? <ErrorMessage /> : null;
   const loader = loading ? <Loader /> : null;
-
 
   return (
     <div className="weather-tabs">

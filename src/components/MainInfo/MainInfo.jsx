@@ -30,7 +30,7 @@ function MainInfo({ currentWeather, weatherTab, dateObj }) {
       case 'Night':
         return <Moon />;
       default:
-        return <DefaulCase />; // Знайти та змінити
+        return <DefaulCase />;
     }
   }
 
